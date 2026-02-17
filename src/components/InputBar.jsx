@@ -5,8 +5,11 @@ import TaskBox from './TaskBox';
 export default function InputBar() {
     const [title, setTitle] = useState("");
     const [date, setDate] = useState("");
-    const [item, setItem] = useState({})
-    const [tasklist, setList] = useState([])
+    const [itemList, setItem] = useState({})
+    const [tasklist, setList] = useState(()=>{
+        const saved = localStorage.getItem("tasks");
+        return saved ? JSON.parse(saved) : []
+    })
     
     const titleHeader = useRef(null)
 
