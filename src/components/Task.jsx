@@ -37,7 +37,7 @@ export default function Task({title, date, id, status, list, setTaskList}) {
   const onDelete = (id) => {
     const updatedList = list.filter((task) => task.id !== id);
     setTaskList(updatedList);
-    localStorage.setItme("tasks", JSON.stringify(updatedList))
+    localStorage.setItem("tasks", JSON.stringify(updatedList))
   }
 
 
