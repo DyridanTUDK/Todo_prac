@@ -3,7 +3,6 @@ import { useState } from 'react'
 
 
 export default function Task({title, date, id, status, list, setTaskList}) {
-  const [done, setDone] = useState(false);
 
   const [editing, setEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
@@ -24,15 +23,10 @@ export default function Task({title, date, id, status, list, setTaskList}) {
   }
 
 
-  const handleComplete = () =>{
-    if(!done){
-      setDone(true)
-      status = true
-    }
-    else{
-      setDone(false)
-      status = false
-    }
+  const handleComplete = (id) =>{
+    const updatedList = list.map((task) => task.id===id?{...task, status:!task.status}:task)
+    setTaskList(updatedList);
+    localStorage.setItem("tasks", JSON.stringify(updatedList))
   }
   const onDelete = (id) => {
     const updatedList = list.filter((task) => task.id !== id);
@@ -47,7 +41,7 @@ export default function Task({title, date, id, status, list, setTaskList}) {
      {editing?(
       <input value={newTitle} onChange={e=> setNewTitle(e.target.value)}/>
      ):(
-      !done?(
+      !status?(
         <h1 className=' font-extrabold text-xl'>{title}</h1>
       ):
       <h1 className=' font-extrabold text-xl line-through'>{title}</h1>
@@ -58,7 +52,7 @@ export default function Task({title, date, id, status, list, setTaskList}) {
     <div className="btns">
     <button onClick={handleEdits} className='bg-orange-500 py-1.5 px-1 rounded-lg ml-3 text-xl min-w-21.25'>{editing?"Save":"Edit"}</button>
     <button onClick={()=>onDelete(id)} className='bg-red-500 py-1.5 px-1 rounded-lg ml-3 text-xl min-w-21.25'>delete</button>
-    <button onClick={() =>handleComplete()} className='bg-green-500 py-1.5 px-1 rounded-lg ml-3 text-xl min-w-21.25'>complete</button>
+    <button onClick={() =>handleComplete(id)} className='bg-green-500 py-1.5 px-1 rounded-lg ml-3 text-xl min-w-21.25'>complete</button>
     </div>
     </div>
   )
