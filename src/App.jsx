@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      <h1>HEllo</h1>
+      <h1 className='text-2xl text-center bg-slate-400 text-white font-bold py-2'>Todo App</h1>
       <InputBar/>
       {/* <TaskBox/> */}
     </>
